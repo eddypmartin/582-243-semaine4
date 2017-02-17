@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Boucle while</title>
+	<meta charset='UTF-8'>
+	<style type="text/css">
+	body {
+		font-family : arial;
+	}
+		header, main, footer {
+			margin : 0 auto;
+			width : 900px;
+		
+			padding : 10px;
+		}
+
+		header, footer{
+			background-color: rgba(32, 134, 104, 0.83);
+
+			font-weight : bold;
+			color : #0b1b6d;
+			text-align : center;
+		}
+		main {}
+		section {
+			border : 1px dotted rgba(32, 134, 104, 0.83);
+			padding : 5px;
+		}
+		footer{
+
+			
+		}
+
+		.tableau {
+			border-collapse: collapse;
+			border: 1px solid #555;
+		}
+		.tableau td {
+			padding: 10px;
+			border: 1px dotted #555;
+		}
+
+
+		.vert { background-color: #0f0 }
+		.rouge { background-color: #f00; }
+
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Exercice #4-A - Les tableaux et  fonctions avec paramètres</h1>
+		<h2>Tableau de distribution</h2>
+	</header>
+	<main>
+		<section id='question1'>
+			<h3>Question 1</h3>
+			<p></p><p></p>
+		</section>
+		<section id='question2'>
+			<h3>Question 2</h3>
+			<p></p><p></p>
+		</section>
+		
+	</main>
+	<footer>
+		Programmation Web I - TIM - Collège de Maisonneuve
+	</footer>
+</body>
+	<script type="text/javascript">
+		
+		var elmQuestion_1 = document.getElementById('question1').getElementsByTagName('p')
+		var elmQuestion_2 = document.getElementById('question1').getElementsByTagName('p')
+		/* ---------------------------------------------------------------------- */
+
+		function genereNombreAleatoire(min,max)
+		{
+			return Math.floor(Math.random()*(max-min+1))+min
+		}
+/*
+		function affiche_tableau_alea(N, min, max, nbCol)
+			{
+				var ch = '<table class="tableau">'
+				for (var i=0; i<N; i++)
+				{
+					if(i%nbCol == 0)
+					{
+						ch += '<tr>'
+					}	
+					ch += '<td>' + genereNombreAleatoire(min,max) + '</td>'
+					if(i%nbCol == nbCol-1)
+					{
+						ch += '</tr>'
+					}
+				}
+				ch += '</table>'
+				return ch
+			}
+*/
+			// ---------------------------------------------------------------
+
+			function valeurMinimum(tableau)
+			{
+				var indexMin = -1;
+				var minimum = Number.MAX_SAFE_INTEGER
+				tableau.forEach(function(element, index) {
+					if (element < minimum)
+					{
+						minimum = element
+						indexMin = index
+					}
+				});
+
+				return indexMin;
+			}
+
+			// ---------------------------------------------------------------
+
+			function valeurMaximum(tableau)
+			{
+				var indexMax = -1;
+				var maximum = 0
+				tableau.forEach(function(element, index) {
+					if (element > maximum)
+					{
+						maximum = element
+						indexMax = index
+					}
+				});
+
+				return indexMax;
+			}
+
+
+		/* ---------------------------------------------------------------------- */
+		elmQuestion_1[0].innerHTML += "Créer une boucle qui permet de compter le nombre d'apparition d'un certain nombre dans la génération de nombres aléatoires"
+		
+		function distributionAleatoire(N, min, max, nbCol)
+		{
+			/* Initialisation du tableau */	
+			
+			for (var i=0 ; i < max-min+1 ; i++)
+			{
+				aDistribution[i] = 0;
+			}
+			var precedent = ''
+			var nbPareil = 0
+			var maxPareil = 0
+			var ch = '<table class="tableau">'
+			for (var i=0, chaine=''; i<N ; i++)
+			{
+				leNombre = genereNombreAleatoire(min,max)
+				
+
+				if(i%nbCol == 0)
+					{
+						ch += '<tr>'
+					}	
+					ch += '<td>' + genereNombreAleatoire(min,max) + '</td>'
+					if(i%nbCol == nbCol-1)
+					{
+						ch += '</tr>'
+					}
+
+
+				aDistribution[leNombre-min]++
+
+			}
+			ch += '</table>'
+			return ch
+		}
+
+			function affiche_tableau_min_max(aDistribution, min, max)
+			{
+
+				var indexMin = valeurMinimum(aDistribution)
+				var indexMax = valeurMaximum(aDistribution)
+				var classe = ' '
+				var chaine = '<table class="tableau">'
+				for (var i=0 ; i< max-min+1 ; i++)
+				{
+					if (i == indexMin)
+					{
+						classe = ' class="rouge" '
+					}
+					if (i == indexMax)
+					{
+						classe = ' class="vert" ' 
+					}
+					chaine += '<tr '+ classe  +' ><td>' + (i+min) + '</td><td>' + aDistribution[i] + '</td></tr>'
+					classe = ''	
+				}
+				chaine += '</table>'
+				return chaine
+			}
+		
+		var aDistribution = []						
+		elmQuestion_1[1].innerHTML = distributionAleatoire(100, 7, 15, 10)
+		elmQuestion_1[1].innerHTML += affiche_tableau_min_max(aDistribution,7,15)
+
+		/* ---------------------------------------------------------------------- */
+
+	
+
+	</script>
+</html>
